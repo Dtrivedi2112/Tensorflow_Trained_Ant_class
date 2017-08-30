@@ -1,176 +1,93 @@
-# TensorFlow Android Camera Demo
+Name: Installing Tensorflow on Ubuntu 16.04 and Train the inception model.
+ 
+Date Started: 09/08/17
+ 
+Using:
+Docker
+Python 2.7
+Android Studio
+ 
+Why?
+To check the extent of tensorflow for object detection and also to see if it works on ubuntu.
+To train the inception v3 model with our custom images.
 
-This folder contains an example application utilizing TensorFlow for Android
-devices.
 
-## Description
+ 
+How?
 
-The demos in this folder are designed to give straightforward samples of using
-TensorFlow in mobile applications.
+Link 1 - https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/index.html#0
+Firstly, one has to follow all the steps on this link to install the docker and tensorflow.
 
-Inference is done using the [TensorFlow Android Inference Interface](../../../tensorflow/contrib/android),
-which may be built separately if you want a standalone library to drop into your
-existing application. Object tracking and YUV -> RGB conversion is handled by
-libtensorflow_demo.so.
+Then it will tell you to download flower images by default (you can use your own images)
 
-A device running Android 5.0 (API 21) or higher is required to run the demo due
-to the use of the camera2 API, although the native libraries themselves can run
-on API >= 14 devices.
+Training the inception will be carried by the next step and it will put all the flower images on the last layer of the model so that it can only detect flowers.
 
-## Current samples:
+Bottlenecks, retrained graph and retrained label files will be generated after training.
 
-1. [TF Classify](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/android/src/org/tensorflow/demo/ClassifierActivity.java):
-        Uses the [Google Inception](https://arxiv.org/abs/1409.4842)
-        model to classify camera frames in real-time, displaying the top results
-        in an overlay on the camera image.
-2. [TF Detect](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/android/src/org/tensorflow/demo/DetectorActivity.java):
-        Demonstrates a model based on [Scalable Object Detection
-        using Deep Neural Networks](https://arxiv.org/abs/1312.2249) to
-        localize and track people in the camera preview in real-time.
-3. [TF Stylize](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/android/src/org/tensorflow/demo/StylizeActivity.java):
-        Uses a model based on [A Learned Representation For Artistic Style]
-        (https://arxiv.org/abs/1610.07629) to restyle the camera preview image
-        to that of a number of different artists.
+After that using python, one check that it is working or not.
 
-<img src="sample_images/classify1.jpg" width="30%"><img src="sample_images/stylize1.jpg" width="30%"><img src="sample_images/detect1.jpg" width="30%">
 
-## Prebuilt APK:
+Link 2 - https://codelabs.developers.google.com/codelabs/tensorflow-for-poets-2/#0
+As per link 1, we have trained our inception model and we checked that the tensorflow is working or not.
 
-If you just want the fastest path to trying the demo, you may download the
-nightly build
-[here](https://ci.tensorflow.org/view/Nightly/job/nightly-android/). Expand the
-"View" and then the "out" folders under "Last Successful Artifacts" to find
-tensorflow_demo.apk. Also available are precompiled native libraries that you
-may drop into your own applications. See
-[tensorflow/contrib/android/README.md](../../../tensorflow/contrib/android/README.md)
-for more details.
+Download tensorflow-for-poets-2 and copy the tf_files into it.
 
-## Running the Demo
+After following some basic steps about setting up docker and tensorflow then one need to optimize the tensorflow and the output will be optimized graph (speed up model with less calculations).
 
-Once the app is installed it can be started via the "TF Classify", "TF Detect"
-and "TF Stylize" icons, which have the orange TensorFlow logo as their icon.
+Compressing the model will generate another graph called rounded graph which is needed otherwise tensorflow won’t work.
 
-While running the activities, pressing the volume keys on your device will
-toggle debug visualizations on/off, rendering additional info to the screen
-that may be useful for development purposes.
+Open it in Android Studio and Test.
+ 
+Outcome
+Tensorflow with our trained model works and  as we provided the model with flower photos it detects different types of flowers.
+The confidence score is displayed on the top with the title.
 
-## Building the Demo from Source
+ 
+Date Completed:  10/08/2017
+ 
+What?
+As it is live tracking, the camera optimizes itself every two seconds when detecting any new object.
+After detecting the object, the one has the high confidence is displayed on the top.
+ 
+Notes:
+Try to follow each step properly and if you get stuck there is an link to a video at the end so you can look into it and follow.
+ 
+Recommendation:
+Train the inception for ant class.
 
-Pick your preferred approach below. At the moment, we have full support for
-Bazel, and partial support for gradle, cmake, make, and Android Studio.
+Name: Trained the tensorflow app with ant class
+ 
+Date Started: 08/08/17
+ 
+Using:
+Docker
+Python 2.7
+Android Studio
+ 
+Why?
+To check that tensorflow works with the trained inception model.
+ 
+How?
+Follow all the steps which is provided in the last spike.
+Create a folder name “Ants” and another one named “Ants 2” and put all the images of it.
+Use the links to train the inception model and provide the images of ants to it.
+Train the model and check the confidence score by executing the python command.
 
-As a first step for all build types, clone the TensorFlow repo with:
 
-```
-git clone --recurse-submodules https://github.com/tensorflow/tensorflow.git
-```
+ 
+Outcome
+Downloaded the fire ant images and inserted into the tensorflow and trained the inception model with it.
 
-Note that `--recurse-submodules` is necessary to prevent some issues with
-protobuf compilation.
+Works fine but need to have two or more classes of objects (eg fire ants, red ants) otherwise it won't work.
 
-### Bazel
-
-NOTE: Bazel does not currently support building for Android on Windows. Full
-support for gradle/cmake builds is coming soon, but in the meantime we suggest
-that Windows users download the
-[prebuilt binaries](https://ci.tensorflow.org/view/Nightly/job/nightly-android/)
-instead.
-
-##### Install Bazel and Android Prerequisites
-
-Bazel is the primary build system for TensorFlow. To build with Bazel,
-it and the Android NDK and SDK must be installed on your system.
-
-1. Install the latest version of Bazel as per the instructions [on the Bazel website](https://bazel.build/versions/master/docs/install.html).
-2. The Android NDK is required to build the native (C/C++) TensorFlow code.
-        The current recommended version is 12b, which may be found
-        [here](https://developer.android.com/ndk/downloads/older_releases.html#ndk-12b-downloads).
-3. The Android SDK and build tools may be obtained
-        [here](https://developer.android.com/tools/revisions/build-tools.html),
-        or alternatively as part of
-        [Android Studio](https://developer.android.com/studio/index.html). Build
-        tools API >= 23 is required to build the TF Android demo (though it will
-        run on API >= 21 devices).
-
-##### Edit WORKSPACE
-
-The Android entries in [`<workspace_root>/WORKSPACE`](../../../WORKSPACE#L19-L32)
-must be uncommented with the paths filled in appropriately depending on where
-you installed the NDK and SDK. Otherwise an error such as:
-"The external label '//external:android/sdk' is not bound to anything" will
-be reported.
-
-Also edit the API levels for the SDK in WORKSPACE to the highest level you
-have installed in your SDK. This must be >= 23 (this is completely independent
-of the API level of the demo, which is defined in AndroidManifest.xml).
-The NDK API level may remain at 14.
-
-##### Install Model Files (optional)
-
-The TensorFlow `GraphDef`s that contain the model definitions and weights
-are not packaged in the repo because of their size. They are downloaded
-automatically and packaged with the APK by Bazel via a new_http_archive defined
-in `WORKSPACE` during the build process, and by Gradle via download-models.gradle.
-
-**Optional**: If you wish to place the models in your assets manually,
-remove all of the `model_files` entries from the `assets`
-list in `tensorflow_demo` found in the `[BUILD](BUILD)` file. Then download
-and extract the archives yourself to the `assets` directory in the source tree:
-
-```bash
-BASE_URL=https://storage.googleapis.com/download.tensorflow.org/models
-for MODEL_ZIP in inception5h.zip mobile_multibox_v1a.zip stylize_v1.zip
-do
-  curl -L ${BASE_URL}/${MODEL_ZIP} -o /tmp/${MODEL_ZIP}
-  unzip /tmp/${MODEL_ZIP} -d tensorflow/examples/android/assets/
-done
-```
-
-This will extract the models and their associated metadata files to the local
-assets/ directory.
-
-If you are using Gradle, make sure to remove download-models.gradle reference
-from build.gradle after your manually download models; otherwise gradle
-might download models again and overwrite your models.
-
-##### Build
-
-After editing your WORKSPACE file to update the SDK/NDK configuration,
-you may build the APK. Run this from your workspace root:
-
-```bash
-bazel build -c opt //tensorflow/examples/android:tensorflow_demo
-```
-
-If you get build errors about protocol buffers, run
-`git submodule update --init` and make sure that you've modified your WORKSPACE
-file as instructed, then try building again.
-
-##### Install
-
-Make sure that adb debugging is enabled on your Android 5.0 (API 21) or
-later device, then after building use the following command from your workspace
-root to install the APK:
-
-```bash
-adb install -r bazel-bin/tensorflow/examples/android/tensorflow_demo.apk
-```
-
-### Android Studio
-
-Android Studio may be used to build the demo in conjunction with Bazel. First,
-make sure that you can build with Bazel following the above directions. Then,
-look at [build.gradle](build.gradle) and make sure that the path to Bazel
-matches that of your system.
-
-At this point you can add the tensorflow/examples/android directory as a new
-Android Studio project. Click through installing all the Gradle extensions it
-requests, and you should be able to have Android Studio build the demo like any
-other application (it will call out to Bazel to build the native code with the
-NDK).
-
-### CMake
-
-Full CMake support for the demo is coming soon, but for now it is possible to
-build the TensorFlow Android Inference library using
-[tensorflow/contrib/android/cmake](../../../tensorflow/contrib/android/cmake).
+ 
+Date Completed:  03/08/2017
+ 
+What?
+Live tracking is better because we can get understand the exact angle of total or close confidence score.
+ 
+Notes:
+When downloading the images, make sure no image is blank otherwise there will be an error regarding invalid JPEG file.
+Also make sure to create a subfolder and then create two or more folders of ants otherwise there will be an error regarding “Classification”.
+Refer the retrain.py file if there is any error.
+ 
