@@ -1,3 +1,4 @@
+-----------------------------------------------------------------------------------------------
 Name: Installing Tensorflow on Ubuntu 16.04 and Train the inception model.
  
 Date Started: 09/08/17
@@ -54,6 +55,9 @@ Try to follow each step properly and if you get stuck there is an link to a vide
  
 Recommendation:
 Train the inception for ant class.
+
+---------------------------------------------------------------------------------------------------
+
 
 Name: Trained the tensorflow app with ant class
  
